@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSproducer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+
+        .loader {
+            border: 8px solid cyan;
+            border-top: 8px solid transparent;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Estilo para el carrusel */
+        .carrusel.oculto {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header class="header">
+        <img src="img/logo.gif" alt="Logo" class="logo">
+        <nav>
+            <a href="index2.html" class="nav-button">Hogar</a>
+            <a href="acerca.html" class="nav-button">Acerca de</a>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main>
+        <section class="intro">
+            <p class="descripcion">
+                Hola, soy Johan. Soy un desarrollador web apasionado por la creación de sistemas de información innovadores. Me encanta resolver problemas complejos y construir soluciones que hagan la vida más fácil. ¡Bienvenido a mi portafolio!
+            </p>
+            <img src="img/tu_foto2.jpg" alt="Foto de Johan" class="foto">
+        </section>
+
+        <!-- Redes Sociales -->
+        <section class="redes-sociales">
+            <a href="https://www.facebook.com/profile.php?id=100005040198476" target="_blank" class="red-social facebook">Facebook</a>
+            <a href="https://github.com/Johan-LS" target="_blank" class="red-social github">GitHub</a>
+            <a href="https://wa.me/917375310" target="_blank" class="red-social whatsapp">WhatsApp</a>
+            <a href="https://www.youtube.com/@Musics_unics" target="_blank" class="red-social youtube">YouTube</a>
+        </section>
+
+        <!-- Botón Desplegable y Carrusel -->
+        <section class="proyectos">
+            <button id="btn-proyectos" class="boton-neon">Mis Proyectos</button>
+            <div id="carrusel" class="carrusel oculto">
+                <!-- Proyecto 1 -->
+                <div class="proyecto">
+                    <iframe width="300" height="200" src="https://www.youtube.com/embed/Mfs750LmeQQ" frameborder="0" allowfullscreen></iframe>
+                    <div class="info">
+                        <h3>Proyecto 1</h3>
+                        <p>Descripción del Proyecto 1.</p>
+                        <p class="precio">S/ . </p>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2 -->
+                <div class="proyecto">
+                    <iframe width="300" height="200" src="https://www.youtube.com/embed/abcdef12345" frameborder="0" allowfullscreen></iframe>
+                    <div class="info">
+                        <h3>Proyecto 2</h3>
+                        <p>Descripción del Proyecto 2.</p>
+                        <p class="precio">S/. 700</p>
+                    </div>
+                </div>
+
+                <!-- Proyecto 3 -->
+                <div class="proyecto">
+                    <iframe width="300" height="200" src="https://www.youtube.com/embed/ghijkl67890" frameborder="0" allowfullscreen></iframe>
+                    <div class="info">
+                        <h3>Proyecto 3</h3>
+                        <p>Descripción del Proyecto 3.</p>
+                        <p class="precio">S/. 900</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            Todos los derechos reservados &copy; <span id="fecha-actual"></span> a mi Página Web <br>
+            Para más información acerca de la web o de los productos, contactarse con el desarrollador en WhatsApp +51917375310
+        </p>
+    </footer>
+
+    <script>
+        // Mostrar la fecha actual
+        const fechaActual = new Date();
+        const opciones = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        document.getElementById('fecha-actual').textContent = fechaActual.toLocaleDateString('es-ES', opciones);
+
+        // Controlar la precarga
+        window.onload = function () {
+            const precarga = document.getElementById('precarga');
+            if (localStorage.getItem('loaded')) {
+                precarga.style.display = 'none'; // Ocultar la precarga si ya fue cargada
+            } else {
+                setTimeout(() => {
+                    precarga.style.display = 'none';
+                    localStorage.setItem('loaded', 'true'); // Marcar como cargada
+                }, 3000); // Mostrar la precarga durante 3 segundos
+            }
+        };
+
+        // Mostrar/ocultar carrusel
+        document.getElementById('btn-proyectos').addEventListener('click', function () {
+            const carrusel = document.getElementById('carrusel');
+            carrusel.classList.toggle('oculto');
+        });
+    </script>
+</body>
+</html>

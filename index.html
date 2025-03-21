@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precarga</title>
+<style>
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    z-index: 10; /* Asegura que el contenido esté por encima */
+}
+
+.container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Texto de bienvenida */
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px cyan, 0 0 20px cyan, 0 0 40px cyan;
+}
+
+/* Animación del SVG */
+.flowers {
+    position: absolute;
+    top: -90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    stroke: cyan;
+    stroke-width: 2;
+    fill: none;
+    animation: draw 3s linear infinite;
+}
+
+@keyframes draw {
+    0% {
+        stroke-dasharray: 0 1000;
+    }
+    100% {
+        stroke-dasharray: 1000 0;
+    }
+}
+
+/* Botón iniciar */
+button {
+    padding: 10px 20px;
+    background: cyan;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px cyan, 0 0 20px cyan, 0 0 40px cyan;
+    z-index: 9999; /* Asegura que el botón esté por encima de todo */
+}
+
+button:hover {
+    background: white;
+    box-shadow: 0 0 15px white, 0 0 30px white, 0 0 60px white;
+}
+
+/* Partículas en movimiento */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Envía las partículas al fondo */
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: cyan;
+    border-radius: 50%;
+    box-shadow: 0 0 10px cyan, 0 0 20px cyan;
+    animation: float 10s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100vw);
+        opacity: 0;
+    }
+}
+
+/* Lago en movimiento */
+.lake {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(to bottom, rgba(0, 255, 255, 0.3), rgba(0, 255, 255, 0.8));
+    overflow: hidden;
+    z-index: -1; /* Envía el lago al fondo */
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+    animation: wave 5s linear infinite;
+}
+
+.wave:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.wave:nth-child(2) {
+    animation-delay: 2.5s;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Árboles */
+.tree {
+    position: absolute;
+    bottom: 200px;
+    width: 100px;
+    height: 200px;
+    animation: sway 5s infinite ease-in-out;
+    z-index: 1; /* Asegura que los árboles estén detrás del botón */
+}
+
+.tree.left {
+    left: 50px;
+    transform-origin: bottom right;
+}
+
+.tree.right {
+    right: 50px;
+    transform-origin: bottom left;
+}
+
+.tree::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 20px;
+    height: 100px;
+    background: cyan;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    box-shadow: 0 0 10px cyan, 0 0 20px cyan;
+}
+
+.tree::after {
+    content: '';
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: cyan;
+    transform: translateX(-50%) rotate(45deg);
+    border-radius: 50%;
+    box-shadow: 0 0 10px cyan, 0 0 20px cyan;
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(-5deg);
+    }
+}
+</style>
+</head>
+<body>
+<!-- Partículas en movimiento -->
+<div class="particles">
+    <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 30%; left: 50%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 70%; left: 80%; animation-delay: 4s;"></div>
+    <div class="particle" style="top: 50%; left: 10%; animation-delay: 6s;"></div>
+    <div class="particle" style="top: 90%; left: 30%; animation-delay: 8s;"></div>
+</div>
+
+<!-- Lago con ondas -->
+<div class="lake">
+    <div class="wave"></div>
+    <div class="wave"></div>
+</div>
+
+<!-- Árboles -->
+<div class="tree left"></div>
+<div class="tree right"></div>
+
+<!-- Contenido principal -->
+<div class="container" id="content">
+    <h1>Bienvenid@ a mi Web</h1>
+    <svg class="flowers" viewBox="0 0 200 200">
+        <path d="M100,10 C150,50 160,150 100,200 C40,150 50,50 100,10 Z" />
+    </svg>
+    <button onclick="console.log('Redirigiendo...'); window.location.href='index2.html'">Ingresar</button>
+</div>
+
+<script>
+// Mostrar contenido después de 3 segundos
+setTimeout(() => {
+    document.getElementById('content').classList.add('visible');
+}, 3000);
+</script>
+</body>
+</html>
